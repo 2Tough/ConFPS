@@ -31,15 +31,15 @@ int main() {
 	map += L"################";
 	map += L"#..............#";
 	map += L"#..............#";
+	map += L"#.......#......#";
+	map += L"#..............#";
+	map += L"#....#.........#";
 	map += L"#..............#";
 	map += L"#..............#";
 	map += L"#..............#";
 	map += L"#..............#";
 	map += L"#..............#";
-	map += L"#..............#";
-	map += L"#..............#";
-	map += L"#..............#";
-	map += L"#..............#";
+	map += L"#........#######";
 	map += L"#..............#";
 	map += L"#..............#";
 	map += L"#..............#";
@@ -61,10 +61,24 @@ int main() {
 		// Controls
 		// Handle CCW Rotation
 		if (GetAsyncKeyState((unsigned short)'A') & 0x8000)
-			fPlayerA -= (0.1f) * fElapsedtime;
+			fPlayerA -= (0.8f) * fElapsedtime;
 
 		if (GetAsyncKeyState((unsigned short)'D') & 0x8000)
-			fPlayerA += (0.1f) * fElapsedtime;
+			fPlayerA += (0.8f) * fElapsedtime;
+
+		if (GetAsyncKeyState((unsigned short)'W') & 0x8000) {
+
+			fPlayerX += sinf(fPlayerA) * 5.0f * fElapsedtime;
+			fPlayerY += cosf(fPlayerA) * 5.0f * fElapsedtime;
+		}
+
+		if (GetAsyncKeyState((unsigned short)'S') & 0x8000) {
+
+			fPlayerX -= sinf(fPlayerA) * 5.0f * fElapsedtime;
+			fPlayerY -= cosf(fPlayerA) * 5.0f * fElapsedtime;
+		}
+
+
 
 
 		for (int x = 0; x < nScreenWidth; x++) {
@@ -116,13 +130,25 @@ int main() {
 					screen[y * nScreenWidth + x] = ' ';
 				else if (y > nCeiling && y <= nFloor)
 					screen[y * nScreenWidth + x] = nShade;
-				else
-					screen[y * nScreenWidth + x] = ' ';
+				else {
+					float b = 1.0f -(((float)y - nScreenHeight / 2.0f) / ((float)nScreenHeight / 2.0f));
+
+					if (b < 0.25)			nShade = '#';
+					else if (b < 0.5)		nShade = 'x';
+					else if (b < 0.75)		nShade = '.';
+					else if (b < 0.9)		nShade = '_';
+					else					nShade = ' ';
+					screen[y * nScreenWidth + x] = nShade;
+
+				}
 			}
 
-			screen[nScreenWidth * nScreenHeight - 1] = '\0';
-			WriteConsoleOutputCharacter(hConsole, screen, nScreenWidth * nScreenHeight, { 0,0 }, &dwBytesWritten);
+			
 		}
+
+		screen[nScreenWidth * nScreenHeight - 1] = '\0';
+		WriteConsoleOutputCharacter(hConsole, screen, nScreenWidth * nScreenHeight, { 0,0 }, &dwBytesWritten);
+
 	}
 	return 0;
 };
