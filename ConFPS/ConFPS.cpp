@@ -5,6 +5,31 @@
 #include <algorithm>
 using namespace std;
 
+#include "oldConsoleGameEngine.h"
+
+class UltimateMaze : public oldConsoleGameEngine {
+	
+public: UltimateMaze() {
+		m_sAppname = L"Ultimate Maze Shooter";
+	}
+	  virtual bool OnUserCreate() {
+		  return true;
+	  }
+
+	  int nScreenWidth = 120;
+	  int nScreenHeight = 40;
+	  float fPlayerX = 8.0f;
+	  float fPlayerY = 8.0f;
+	  float fPlayerA = 0.0f;
+
+	  int nMapHeight = 16;
+	  int nMapWidth = 16;
+
+	  float fFOV = 3.14159 / 4.0;
+	  float fDepth = 16.0f;
+	  float fSpeed = 5.0f;
+};
+
 #include <stdio.h>
 #include <Windows.h>
 
@@ -12,18 +37,6 @@ using namespace std;
 using namespace std;
 
 
-int nScreenWidth = 120;
-int nScreenHeight = 40;
-float fPlayerX = 8.0f;
-float fPlayerY = 8.0f;
-float fPlayerA = 0.0f;
-
-int nMapHeight = 16;
-int nMapWidth = 16;
-
-float fFOV = 3.14159 / 4.0;
-float fDepth = 16.0f;
-float fSpeed = 5.0f;
 
 
 int main() {
