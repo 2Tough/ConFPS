@@ -27,7 +27,7 @@ float fSpeed = 5.0f;
 
 
 int main() {
-	// TODO: Finish 2nd part. Need to add final touches.
+	// TODO: Finish 2nd part. Need to add final touches
 	// Create screen buffer
 	wchar_t* screen = new wchar_t[nScreenWidth * nScreenHeight];
 	HANDLE hConsole = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
